@@ -1,0 +1,17 @@
+# Laufzeit-Aufzeichnungen — personenbezogen, gehoeren NIE ins Repo
+archive/*
+!archive/.keep
+
+# Wegwerf-Verifikations-Resource, nicht Teil des Produkts
+_probe/
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+*.log
+
+# UI-Backup vor dem Redesign
+ui/_old/
+
+# Interne Build-Briefs / Arbeitsnotizen
+PROMPT.md

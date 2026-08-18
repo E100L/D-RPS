@@ -1,0 +1,313 @@
+/* ===========================================================================
+   D-RPS — Dollar Replay System
+   ui/style.css
+
+   Oberflaeche der 3D-Wiedergabe. Dunkel, zurueckhaltend, hoher Kontrast —
+   das Spielbild bleibt die Hauptsache, die Bedienung ordnet sich unter.
+   =========================================================================== */
+
+:root {
+    --bg:            rgba(11, 15, 20, 0.92);
+    --bg-solid:      #0b0f14;
+    --panel:         rgba(15, 20, 27, 0.88);
+    --line:          rgba(255, 255, 255, 0.08);
+    --line-strong:   rgba(255, 255, 255, 0.16);
+    --text:          #e8edf3;
+    --text-dim:      #8b97a6;
+    --text-faint:    #5e6b7a;
+    --accent:        #4da3ff;
+    --accent-soft:   rgba(77, 163, 255, 0.16);
+    --danger:        #ff5964;
+    --warn:          #ffb340;
+    --ok:            #3ddc97;
+    --radius:        8px;
+    --shadow:        0 8px 32px rgba(0, 0, 0, 0.45);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+    width: 100%; height: 100%;
+    overflow: hidden;
+    background: transparent;
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
+    font-size: 14px;
+    color: var(--text);
+    user-select: none;
+    -webkit-font-smoothing: antialiased;
+}
+
+#app { width: 100%; height: 100%; position: relative; }
+#app.hidden { display: none; }
+.hidden { display: none !important; }
+
+/* ── Kopfzeile ──────────────────────────────────────────────────────────── */
+
+#topbar {
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 46px;
+    display: flex; align-items: center; gap: 16px;
+    padding: 0 16px;
+    background: linear-gradient(180deg, rgba(8, 11, 15, 0.94) 0%, rgba(8, 11, 15, 0) 100%);
+    pointer-events: none;
+}
+
+.brand { display: flex; align-items: baseline; gap: 8px; pointer-events: none; }
+.brand-mark {
+    font-size: 15px; font-weight: 700; letter-spacing: 0.06em;
+    color: var(--accent);
+}
+.brand-sub { font-size: 11px; color: var(--text-faint); letter-spacing: 0.08em; text-transform: uppercase; }
+
+.session {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 12px; color: var(--text-dim);
+    margin-left: auto; margin-right: 8px;
+}
+.session .dot { width: 3px; height: 3px; border-radius: 50%; background: var(--text-faint); }
+
+.icon-btn {
+    pointer-events: auto;
+    width: 28px; height: 28px;
+    display: grid; place-items: center;
+    border: 1px solid var(--line); border-radius: 6px;
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--text-dim);
+    font-size: 13px; cursor: pointer;
+    transition: all 0.15s ease;
+}
+.icon-btn:hover { background: var(--danger); border-color: var(--danger); color: #fff; }
+
+/* ── Seitenpanels ───────────────────────────────────────────────────────── */
+
+.panel {
+    position: absolute; top: 58px;
+    width: 236px;
+    max-height: calc(100vh - 200px);
+    display: flex; flex-direction: column;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(12px);
+    overflow: hidden;
+    pointer-events: auto;
+}
+
+#playerPanel   { left: 16px; }
+#incidentPanel { right: 16px; }
+
+.panel-head {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--line);
+}
+.panel-head h2 {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.09em;
+    text-transform: uppercase; color: var(--text-dim);
+}
+.badge {
+    min-width: 20px; padding: 1px 6px;
+    text-align: center;
+    font-size: 11px; font-weight: 600;
+    color: var(--text-dim);
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 10px;
+}
+
+.list { list-style: none; overflow-y: auto; flex: 1; }
+.list::-webkit-scrollbar { width: 6px; }
+.list::-webkit-scrollbar-thumb { background: var(--line-strong); border-radius: 3px; }
+
+.panel-hint {
+    padding: 7px 12px;
+    font-size: 10.5px; color: var(--text-faint);
+    border-top: 1px solid var(--line);
+}
+
+/* Spieler-Eintrag */
+.p-item {
+    display: flex; align-items: center; gap: 9px;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-left: 2px solid transparent;
+    transition: background 0.12s ease;
+}
+.p-item:hover { background: rgba(255, 255, 255, 0.04); }
+.p-item.is-focus { background: var(--accent-soft); border-left-color: var(--accent); }
+.p-avatar {
+    width: 24px; height: 24px; flex-shrink: 0;
+    display: grid; place-items: center;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.07);
+    font-size: 10px; font-weight: 700; color: var(--text-dim);
+}
+.p-item.is-focus .p-avatar { background: var(--accent); color: #06121f; }
+.p-meta { min-width: 0; }
+.p-name {
+    font-size: 12.5px; font-weight: 500;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.p-sub { font-size: 10.5px; color: var(--text-faint); }
+
+/* Vorfall-Eintrag */
+.i-item {
+    padding: 9px 12px;
+    cursor: pointer;
+    border-left: 2px solid var(--warn);
+    border-bottom: 1px solid var(--line);
+    transition: background 0.12s ease;
+}
+.i-item:hover { background: rgba(255, 255, 255, 0.05); }
+.i-item.sev-high { border-left-color: var(--danger); }
+.i-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.i-type {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.06em;
+    text-transform: uppercase; color: var(--warn);
+}
+.i-item.sev-high .i-type { color: var(--danger); }
+.i-conf { font-size: 10.5px; color: var(--text-faint); font-variant-numeric: tabular-nums; }
+.i-text { margin-top: 3px; font-size: 11.5px; color: var(--text-dim); line-height: 1.35; }
+.i-time { margin-top: 4px; font-size: 10.5px; color: var(--text-faint); font-variant-numeric: tabular-nums; }
+
+.empty { padding: 16px 12px; font-size: 11.5px; color: var(--text-faint); text-align: center; }
+
+/* ── Transportleiste ────────────────────────────────────────────────────── */
+
+#transport {
+    position: absolute; left: 50%; bottom: 18px;
+    transform: translateX(-50%);
+    width: min(880px, calc(100vw - 540px));
+    min-width: 480px;
+    padding: 12px 16px 13px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(12px);
+    pointer-events: auto;
+}
+
+.timeline-row { display: flex; align-items: center; gap: 12px; }
+.time {
+    font-size: 11.5px; color: var(--text-dim);
+    font-variant-numeric: tabular-nums; letter-spacing: 0.02em;
+    min-width: 42px; text-align: center;
+}
+
+.track {
+    position: relative; flex: 1;
+    height: 26px;
+    display: flex; align-items: center;
+    cursor: pointer;
+}
+.track::before {
+    content: ''; position: absolute; left: 0; right: 0;
+    height: 4px; border-radius: 2px;
+    background: rgba(255, 255, 255, 0.10);
+}
+.track-fill {
+    position: absolute; left: 0;
+    height: 4px; width: 0;
+    border-radius: 2px;
+    background: linear-gradient(90deg, #2d7fd6, var(--accent));
+}
+.track-markers { position: absolute; left: 0; right: 0; height: 26px; pointer-events: none; }
+.marker {
+    position: absolute; top: 4px;
+    width: 2px; height: 18px;
+    border-radius: 1px;
+    background: var(--warn);
+    box-shadow: 0 0 6px rgba(255, 179, 64, 0.55);
+    pointer-events: auto; cursor: pointer;
+    transform: translateX(-1px);
+}
+.marker.sev-high { background: var(--danger); box-shadow: 0 0 6px rgba(255, 89, 100, 0.6); }
+.marker:hover { width: 4px; transform: translateX(-2px); }
+
+.track-head {
+    position: absolute;
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: #fff;
+    border: 2px solid var(--accent);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    transform: translateX(-6px);
+    pointer-events: none;
+}
+
+.track-tip {
+    position: absolute; bottom: 30px;
+    padding: 5px 9px;
+    background: var(--bg-solid);
+    border: 1px solid var(--line-strong);
+    border-radius: 5px;
+    font-size: 11px; color: var(--text);
+    white-space: nowrap;
+    transform: translateX(-50%);
+    pointer-events: none;
+    box-shadow: var(--shadow);
+}
+
+.controls-row {
+    display: flex; align-items: center; gap: 14px;
+    margin-top: 10px;
+}
+.ctrl-group { display: flex; align-items: center; gap: 6px; }
+.ctrl-group.right { margin-left: auto; }
+
+.ctrl {
+    width: 32px; height: 32px;
+    display: grid; place-items: center;
+    border: 1px solid var(--line); border-radius: 7px;
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--text); font-size: 13px;
+    cursor: pointer; transition: all 0.14s ease;
+}
+.ctrl:hover { background: rgba(255, 255, 255, 0.10); border-color: var(--line-strong); }
+.ctrl-primary {
+    width: 38px; height: 38px; font-size: 15px;
+    background: var(--accent); border-color: var(--accent); color: #06121f;
+}
+.ctrl-primary:hover { background: #6ab4ff; border-color: #6ab4ff; }
+
+.chip {
+    padding: 5px 10px;
+    border: 1px solid var(--line); border-radius: 6px;
+    background: rgba(255, 255, 255, 0.03);
+    color: var(--text-dim);
+    font-size: 11.5px; font-weight: 500;
+    cursor: pointer; transition: all 0.14s ease;
+    font-variant-numeric: tabular-nums;
+}
+.chip:hover { background: rgba(255, 255, 255, 0.09); color: var(--text); }
+.chip.is-active {
+    background: var(--accent-soft); border-color: rgba(77, 163, 255, 0.45);
+    color: var(--accent);
+}
+.chip.wide { min-width: 84px; text-align: center; }
+
+/* ── Tastaturhilfe ──────────────────────────────────────────────────────── */
+
+#keyhint {
+    position: absolute; left: 50%; bottom: 2px;
+    transform: translateX(-50%);
+    display: flex; gap: 14px;
+    font-size: 10.5px; color: var(--text-faint);
+    pointer-events: none;
+}
+#keyhint span { display: flex; align-items: center; gap: 4px; }
+kbd {
+    display: inline-block;
+    min-width: 16px; padding: 1px 4px;
+    border: 1px solid var(--line-strong); border-radius: 3px;
+    background: rgba(255, 255, 255, 0.05);
+    font-family: inherit; font-size: 10px; text-align: center;
+    color: var(--text-dim);
+}
+
+/* Schmale Bildschirme: Panels schmaler, Transport voller */
+@media (max-width: 1400px) {
+    .panel { width: 200px; }
+    #transport { width: calc(100vw - 470px); min-width: 420px; }
+}

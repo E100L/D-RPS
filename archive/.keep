@@ -1,0 +1,3 @@
+Dieser Ordner haelt die Replay-Tagesdateien (.drps).
+Er MUSS existieren — D-RPS kann Ordner nicht selbst anlegen (FiveM-Sandbox).
+Nicht loeschen.

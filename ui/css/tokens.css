@@ -1,0 +1,79 @@
+/* ===========================================================================
+   D-RPS — Dollar Replay System
+   ui/css/tokens.css
+
+   Gestaltungsgrundlage nach Apples Prinzipien: Zuruecknahme, Klarheit, Tiefe.
+   Die Oberflaeche tritt hinter die Szene zurueck — Material statt Frontplatte,
+   Typografie statt Gravur, ein einziges Systemblau statt Signalfarben.
+
+   Referenz ist Final Cut Pro: Browser links, Inspector rechts, Timeline unten,
+   Transport als schwebende Kapsel darueber.
+   =========================================================================== */
+
+:root {
+    /* ── Material ────────────────────────────────────────────────────────
+       Dunkle Flaechen sind nie reines Schwarz, sondern gestufte Grauwerte —
+       so entsteht Tiefe ohne Schlagschatten. */
+    /* Deckkraft bewusst hoch: die Oberflaeche liegt ueber einer hellen,
+       bewegten Szene und ueber fremden HUD-Resources des Servers. Zu viel
+       Transparenz macht sie unlesbar — das ist im Spiel geprueft. */
+    --mat-chrome:    rgba(26, 26, 28, 0.94);   /* Toolbar */
+    --mat-panel:     rgba(32, 32, 34, 0.93);   /* Panels */
+    --mat-raised:    rgba(58, 58, 60, 0.96);   /* schwebende Kapsel */
+    --mat-well:      rgba(18, 18, 20, 0.96);   /* eingesenkt: Timeline-Bett */
+    --mat-solid:     #1C1C1E;                  /* wenn Transparenz stoert */
+    --mat-blur:      saturate(180%) blur(28px);
+
+    /* ── Beschriftung ──────────────────────────────────────────────────── */
+    --label-1:       rgba(255, 255, 255, 0.94);  /* primaer */
+    --label-2:       rgba(235, 235, 245, 0.62);  /* sekundaer */
+    --label-3:       rgba(235, 235, 245, 0.34);  /* tertiaer */
+    --label-4:       rgba(235, 235, 245, 0.20);  /* quartaer, Platzhalter */
+
+    /* ── Trennung ──────────────────────────────────────────────────────── */
+    --sep:           rgba(255, 255, 255, 0.10);
+    --sep-strong:    rgba(255, 255, 255, 0.16);
+    --fill-1:        rgba(120, 120, 128, 0.20);  /* Steuerflaechen */
+    --fill-2:        rgba(120, 120, 128, 0.32);  /* Hover */
+    --fill-3:        rgba(120, 120, 128, 0.44);  /* aktiv */
+
+    /* ── Systemfarben (macOS, dunkel) ──────────────────────────────────── */
+    --accent:        #0A84FF;
+    --accent-dim:    rgba(10, 132, 255, 0.22);
+    --red:           #FF453A;
+    --orange:        #FF9F0A;
+    --green:         #30D158;
+    --yellow:        #FFD60A;
+
+    /* ── Typografie ────────────────────────────────────────────────────────
+       Systemschrift zuerst — auf jedem Rechner vorhanden, kein Nachladen.
+       Ziffern in Tabellenbreite, damit der Timecode nicht springt. */
+    --font: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter',
+            'Segoe UI Variable Text', 'Segoe UI', system-ui, sans-serif;
+    --font-mono: 'SF Mono', 'JetBrains Mono', 'Cascadia Mono', ui-monospace,
+                 Consolas, monospace;
+
+    /* ── Radien: durchgaengige Stufung ─────────────────────────────────── */
+    --r-xs:   5px;    /* Marker, Badges */
+    --r-sm:   8px;    /* kleine Knoepfe, Listenzeilen */
+    --r-md:  11px;    /* Knoepfe, Segmented Control */
+    --r-lg:  16px;    /* Panels */
+    --r-pill: 999px;  /* Kapseln */
+
+    /* ── Raster: Vielfache von 4 ───────────────────────────────────────── */
+    --s1: 4px;  --s2: 8px;  --s3: 12px; --s4: 16px; --s5: 20px; --s6: 28px;
+
+    --panel-w:  clamp(238px, 18vw, 304px);
+    --toolbar-h: 52px;
+
+    /* ── Bewegung ──────────────────────────────────────────────────────────
+       Apples Standardkurve: schneller Start, weiches Auslaufen, kein Federn. */
+    --ease:  cubic-bezier(0.32, 0.72, 0, 1);
+    --t-fast: 150ms;
+    --t-base: 260ms;
+    --t-slow: 380ms;
+
+    /* ── Erhebung ──────────────────────────────────────────────────────── */
+    --lift-1: 0 1px 2px rgba(0,0,0,0.28), 0 0 0 0.5px rgba(255,255,255,0.06);
+    --lift-2: 0 8px 28px rgba(0,0,0,0.44), 0 0 0 0.5px rgba(255,255,255,0.08);
+}
